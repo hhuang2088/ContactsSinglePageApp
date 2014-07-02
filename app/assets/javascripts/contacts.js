@@ -68,7 +68,27 @@ $(document).ready(function(){
  
     // Call a function to add our contact to 
     //  the page.
-    addContact(newContact);
- 
+    // addContact(newContact);
+
+    $.ajax({
+      url: "/contacts",
+      method: "post",
+      data: {
+        "contact": {
+          "name": name, 
+          "email": email,
+          "phone": number,
+          "img": imgUrl
+        }
+      },
+      dataType: "json",
+      success: function(){
+        console.log("Hello World")
+        addContact(newContact);
+      },
+      error: function() {
+        console.log("Not so Hello World")
+      }
+    })
   });
 });
