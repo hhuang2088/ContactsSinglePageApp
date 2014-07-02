@@ -1,6 +1,5 @@
 // Waiting for the DOM to finish loading
-$(document).ready(function(){
- 
+$(document).ready(function(){ 
  
   var contacts = [];
   var count = 0;
@@ -91,4 +90,38 @@ $(document).ready(function(){
       }
     })
   });
+  // var loadedContact(data) = { id: count,
+  //                      name: data.name,
+  //                      email: data.email,
+  //                      number: data.phone,
+  //                      imgUrl: data.img };
+  //   count += 1;
+
+
+      var loadContact = function(){ 
+      $.ajax({
+        url: "/contacts",
+        method: "get",
+        dataType: "json",
+        success: function(data){
+          console.log(data)
+          for(i=0; i < data.length; i++){
+            var loadedContact = {
+                id: data[i].id,
+                name: data[i].name, 
+                email: data[i].email, 
+                number: data[i].phone,
+                imgUrl: data[i].img
+              };
+            count = data[i].id;
+            count += 1
+            addContact(loadedContact);
+          }
+        },
+        error: function() {
+          console.log("Not so Hello World")
+        }
+      })
+    }
+  loadContact();
 });
